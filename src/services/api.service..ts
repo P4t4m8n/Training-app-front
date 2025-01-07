@@ -1,5 +1,5 @@
 /* eslint-disable no-useless-catch */
-const BASE_URL = "http://10.0.0.3:3030/api/";
+const BASE_URL = "http://localhost:3030/api/";
 type TApiService = {
   get<T>(endpoint: string, data?: unknown): Promise<T>;
   post<T>(endpoint: string, data?: unknown): Promise<T>;
@@ -34,7 +34,7 @@ const ajax = async <T>(
       credentials: "include",
       headers: {
         ...(data instanceof FormData
-          ? {}
+          ? { }
           : { "Content-Type": "application/json" }),
       },
     };

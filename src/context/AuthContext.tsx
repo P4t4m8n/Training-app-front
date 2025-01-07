@@ -29,6 +29,7 @@ export const AuthProvider: FC<Props> = ({
   children: ReactNode;
 }) => {
   const [user, setUser] = useState<TUser | null>(null);
+  console.log("user:", user)
 
   //Access the state value without causing a re-render
   const userRef = useRef<TUser | null>(null);
@@ -36,10 +37,9 @@ export const AuthProvider: FC<Props> = ({
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const token = getSessionData<string>("token");
-        console.log("token:", token)
-        if (!token) return;
-        const user = await authService.validateToken(token);
+        const uniqueId = getSessionData<string>("uniqueId");
+        if (!uniqueId) return;
+        const user = await authService.validateToken(uniqueId);
         setUser(user);
         userRef.current = user;
       } catch (error) {
