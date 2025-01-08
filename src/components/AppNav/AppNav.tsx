@@ -1,20 +1,13 @@
-import { NavLink } from "react-router";
 import { HomeSvg, ProfileSvg, TraineeSvg, TrainerSvg } from "../Icons/IconsSvg";
+import NavLinks from "../UI/NavLinks";
 
 export default function AppNav() {
   return (
-    <nav className="flex w-full justify-between py-2  px-6 h-16 bg-slate-100 ">
-      {NAV_LINKS.map((link) => (
-        <NavLink
-          key={link.to}
-          to={link.to}
-          className="w-6 flex flex-col items-center justify-between"
-        >
-          {link.icon}
-          <span>{link.text}</span>
-        </NavLink>
-      ))}
-    </nav>
+    <NavLinks
+      navStyle=" flex w-full justify-between py-2 px-6 h-16 bg-slate-100"
+      itemStyle="w-6 flex flex-col items-center justify-between"
+      navLinks={NAV_LINKS}
+    />
   );
 }
 

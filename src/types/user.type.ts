@@ -1,4 +1,5 @@
 import { TEntity } from "./app.type";
+import { TProgram } from "./progrem.type";
 
 export type TUser = TEntity & {
   firstName?: string;
@@ -9,9 +10,8 @@ export type TUser = TEntity & {
   isTrainer?: boolean;
 };
 
-export type TUserFull = TUser & {
-  programs: unknown[]; //TODO: add program type
-  trainer: unknown; //TODO: add trainer type
+export type TTrainee = TUser & {
+  programs: TProgram[]; //TODO: add program type
 };
 
 export type TUserFilter = {

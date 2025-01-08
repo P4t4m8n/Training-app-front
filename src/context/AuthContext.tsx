@@ -29,7 +29,6 @@ export const AuthProvider: FC<Props> = ({
   children: ReactNode;
 }) => {
   const [user, setUser] = useState<TUser | null>(null);
-  console.log("user:", user)
 
   //Access the state value without causing a re-render
   const userRef = useRef<TUser | null>(null);

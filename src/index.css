@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.trainee-preview-item {
+  display: grid;
+  grid-template-columns: 25% 25% 30% 20%;
+  padding-inline: 1rem;
+  row-gap: 10rem;
+}
