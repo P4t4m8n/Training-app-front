@@ -1,4 +1,4 @@
-import { HamburgerSvg, SettingsSvg } from "../Icons/IconsSvg";
+import { HamburgerSvg, SettingsSvg } from "../UI/Icons/IconsSvg";
 
 export default function Header() {
   return (

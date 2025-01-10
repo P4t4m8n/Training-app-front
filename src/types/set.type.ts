@@ -6,3 +6,7 @@ export type TSet = TEntity & {
   weight: number;
   rest: number;
 };
+export type TSetDto = TEntity &
+  TSet & {
+    trainingId: string;
+  };

@@ -1,4 +1,9 @@
-import { HomeSvg, ProfileSvg, TraineeSvg, TrainerSvg } from "../Icons/IconsSvg";
+import {
+  HomeSvg,
+  ProfileSvg,
+  TraineeSvg,
+  TrainerSvg,
+} from "../UI/Icons/IconsSvg";
 import NavLinks from "../UI/NavLinks";
 
 export default function AppNav() {

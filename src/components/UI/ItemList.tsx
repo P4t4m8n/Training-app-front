@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 
 interface Props<T> {
   items: T[];
-  renderItem: (item: T) => React.ReactNode;
+  renderItem: (item: T, idx?: number) => React.ReactNode;
   listStyle?: string;
 }
 export default function ItemList<T>({
@@ -13,8 +13,12 @@ export default function ItemList<T>({
   return (
     <ul className={listStyle}>
       {items.map((item, index) => (
-        <Fragment key={index}>{renderItem(item)}</Fragment>
+        <Fragment key={generateRandomId()}>{renderItem(item, index)}</Fragment>
       ))}
     </ul>
   );
 }
+
+const generateRandomId = () => {
+  return Math.random().toString(36).substring(7);
+};

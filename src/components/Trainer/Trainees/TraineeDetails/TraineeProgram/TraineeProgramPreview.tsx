@@ -1,4 +1,4 @@
-import { TProgram } from "../../../../../types/progrem.type";
+import { TProgram } from "../../../../../types/program.type";
 
 interface Props {
   program: TProgram;

@@ -4,7 +4,7 @@ import { useParams } from "react-router";
 import Button from "../components/UI/Button";
 import { userUtil } from "../utils/user.util";
 import { apiService } from "../services/api.service.";
-import { CopySvg } from "../components/Icons/IconsSvg";
+import { CopySvg } from "../components/UI/Icons/IconsSvg";
 import UserForm from "../components/TraineeEdit/UserForm";
 
 export default function TraineeEdit() {

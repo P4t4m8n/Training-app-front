@@ -1,5 +1,5 @@
 import { TEntity } from "./app.type";
-import { TProgram } from "./progrem.type";
+import { TProgram } from "./program.type";
 
 export type TUser = TEntity & {
   firstName?: string;

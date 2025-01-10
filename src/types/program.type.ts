@@ -2,11 +2,19 @@ import { TEntity } from "./app.type";
 import { TTraining } from "./training.type";
 
 export type TProgram = TEntity & {
-  daysOfWeek: TDaysOfWeek[];
+  days: TDaysOfWeek[];
   startDate: Date;
   endDate: Date;
   trainings: TTraining[];
-  userId: number;
+  userId: string;
+  name: string;
+};
+
+export type TProgramDto = TEntity & {
+  days: TDaysOfWeek[];
+  startDate: Date;
+  endDate: Date;
+  userId: string;
   name: string;
 };
 

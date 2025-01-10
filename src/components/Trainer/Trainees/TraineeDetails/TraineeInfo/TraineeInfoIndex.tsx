@@ -7,11 +7,11 @@ import TraineeInfo from "./TraineeInfo";
 interface Props {
   trainee: TTrainee;
 }
-export default function TraineeEditSwitch({ trainee }: Props) {
+export default function TraineeInfoIndex({ trainee }: Props) {
   const [isEdit, setIsEdit] = useState(false);
 
   return (
-    <div className="flex border rounded p-4 w-[calc(50%-.5rem)] justify-between items-start">
+    <div className="flex  border rounded p-4 w-full justify-between items-start">
       {isEdit ? (
         <TraineeInfoEdit trainee={trainee} />
       ) : (

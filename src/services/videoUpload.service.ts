@@ -1,26 +1,21 @@
-export const uploadToCloudinary = async (uri: string) => {
-  const uploadPreset = process.env.EXPO_PUBLIC_CLOUDINARY_UPLOAD_PRESET!;
-  const cloudName = process.env.EXPO_PUBLIC_CLOUDINARY_CLOUD_NAME!;
-  const data = new FormData();
-  data.append("file", {
-    uri,
-    name: "video.mp4",
-    type: "video/mp4",
-  } as any); // 'any' used for compatibility with FormData in React Native
+export const uploadVideoToCloudinary = async (file: Blob) => {
+  const UPLOAD_PRESET = import.meta.env.CLOUDINARY_UPLOAD_PRESET!;
+  const CLOUD_NAME = import.meta.env.CLOUDINARY_CLOUD_NAME!;
+  const UPLOAD_URL = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`;
 
-  data.append("upload_preset", uploadPreset); // Replace with your Cloudinary preset
-  data.append("cloud_name", cloudName); // Replace with your Cloudinary cloud name
-
+  console.log("UPLOAD_URL:", UPLOAD_URL)
   try {
-    const response = await fetch(
-      `https://api.cloudinary.com/v1_1/${cloudName}/video/upload`,
-      {
-        method: "POST",
-        body: data,
-      }
-    );
+    const formData = new FormData();
+    formData.append("upload_preset", UPLOAD_PRESET);
+    formData.append("file", file);
+    const res = await fetch(UPLOAD_URL, {
+      method: "POST",
+      body: formData,
+    });
+    console.log("res:", res);
 
-    const result = await response.json();
+    const result = await res.json();
+    console.log("result:", result);
 
     // Save the `result.secure_url` to your database if needed
     return result;

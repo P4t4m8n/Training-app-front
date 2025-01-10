@@ -1,12 +1,11 @@
 import { BrowserRouter, Routes } from "react-router";
+import { renderRoutes, ROUTES } from "./routes";
 
-import "./index.css";
 import Header from "./components/Header/Header";
 import AppNav from "./components/AppNav/AppNav";
-import { renderRoutes } from "./utils/routesRender.util";
-import { ROUTES } from "./routes";
 
-function App() {
+import "./index.css";
+export default function App() {
   const routes = renderRoutes(ROUTES);
   return (
     <>
@@ -20,5 +19,3 @@ function App() {
     </>
   );
 }
-
-export default App;

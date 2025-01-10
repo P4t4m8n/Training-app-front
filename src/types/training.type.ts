@@ -1,5 +1,4 @@
 import { TEntity } from "./app.type";
-import { TExercise } from "./exercise.type";
 import { TSet } from "./set.type";
 
 export type TTraining = TEntity & {
@@ -7,8 +6,11 @@ export type TTraining = TEntity & {
   userVideosURL: string[];
   set: number;
   goalSet: number;
-  exercises: TExercise;
+  name: string;
   sets: TSet[];
 };
 
-
+export type TTrainingDTO = TEntity &
+  TTraining & {
+    programId: string;
+  };
