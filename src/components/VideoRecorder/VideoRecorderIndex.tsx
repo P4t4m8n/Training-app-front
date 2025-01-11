@@ -3,9 +3,10 @@ import { useModel } from "../../hooks/useModel";
 import Button from "../UI/Button";
 import { CameraSvg } from "../UI/Icons/IconsSvg";
 import { uploadVideoToCloudinary } from "../../services/videoUpload.service";
+import { TVideo } from "../../types/video.type";
 
 interface Props {
-  addVideosURL: (url: string) => void;
+  addVideosURL: (video: TVideo) => void;
 }
 
 export default function VideoRecorderIndex({ addVideosURL }: Props) {
@@ -37,9 +38,10 @@ export default function VideoRecorderIndex({ addVideosURL }: Props) {
     if (!stream) return;
 
     const mediaRecorder = new MediaRecorder(stream);
-    mediaRecorder.ondataavailable = (event) => {
+    mediaRecorder.ondataavailable = async (event) => {
       if (event.data.size > 0) {
         recordedChunksRef.current.push(event.data);
+        await saveRecording();
       }
     };
     mediaRecorder.start();
@@ -58,16 +60,13 @@ export default function VideoRecorderIndex({ addVideosURL }: Props) {
       stream.getTracks().forEach((track) => track.stop());
       setStream(null);
     }
-    await saveRecording();
   };
 
   const saveRecording = async () => {
     if (recordedChunksRef.current.length) {
-      console.log("recordedChunks:", recordedChunksRef.current);
       const blob = new Blob(recordedChunksRef.current, { type: "video/webm" });
-      const url = await uploadVideoToCloudinary(blob);
-      console.log("url:", url);
-      addVideosURL(url);
+      const video = await uploadVideoToCloudinary(blob);
+      addVideosURL(video);
       setIsOpen(false);
     }
   };
@@ -76,7 +75,8 @@ export default function VideoRecorderIndex({ addVideosURL }: Props) {
       <Button
         styleMode="none"
         styleSize="none"
-        onClick={() => {
+        onClick={(e) => {
+          e.preventDefault();
           setIsOpen(true);
           startPreview();
         }}

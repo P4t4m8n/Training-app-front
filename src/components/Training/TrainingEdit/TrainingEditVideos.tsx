@@ -1,36 +1,32 @@
-import { TTraining } from "../../../types/training.type";
+import React from "react";
+import { TVideo } from "../../../types/video.type";
+import ItemList from "../../UI/ItemList";
+import VideoPlayerIndex from "../../VideoPlayer/VideoPlayerIndex";
 import VideoRecorderIndex from "../../VideoRecorder/VideoRecorderIndex";
 
 interface Props {
-  videosURL: string[];
-  setTrainingToEdit: React.Dispatch<React.SetStateAction<TTraining>>;
+  videos: TVideo[];
+  setTrainingToEdit: React.Dispatch<React.SetStateAction<TVideo[]>>;
 }
-export default function TrainingEditVideos({
-  videosURL,
-  setTrainingToEdit,
-}: Props) {
-  console.log("videosURL:", videosURL)
-  const addVideosURL = (url: string) => {
-    setTrainingToEdit((prev) => ({
-      ...prev,
-      videosURL: [...prev.videosURL, url],
-    }));
+
+const TrainingEditVideos: React.FC<Props> = ({ videos, setTrainingToEdit }) => {
+  const addVideosURL = (video: TVideo) => {
+    setTrainingToEdit((prev) => [...prev, video]);
   };
 
   return (
     <div>
       <VideoRecorderIndex addVideosURL={addVideosURL} />
-      {videosURL.length ? (
-        <ul>
-          {videosURL.map((url) => (
-            <li key={url}>
-              <video src={url} controls></video>
-            </li>
-          ))}
-        </ul>
+      {videos?.length ? (
+        <ItemList
+          items={videos}
+          renderItem={(video) => <VideoPlayerIndex video={video} />}
+        />
       ) : (
         <span>no videos</span>
       )}
     </div>
   );
-}
+};
+
+export default React.memo(TrainingEditVideos);

@@ -1,36 +1,23 @@
 import { TTraining } from "../../types/training.type";
 import SetsDetails from "../Sets/SetsDetails";
 import ItemList from "../UI/ItemList";
+import VideoPlayerIndex from "../VideoPlayer/VideoPlayerIndex";
 
 interface Props {
   training: TTraining;
 }
 export default function TrainingDetails({ training }: Props) {
-  const { name, videosURL, userVideosURL, set, goalSet, sets } = training;
+  const { name, videos, set, goalSet, sets } = training;
   return (
     <div className="flex flex-col gap-4 ">
       <h2 className="text-lg text-center font-semibold">{name}</h2>
-      {videosURL.length ? (
-        <ul>
-          {videosURL.map((url) => (
-            <li key={url}>
-              <video src={url} controls></video>
-            </li>
-          ))}
-        </ul>
+      {videos?.length ? (
+        <ItemList
+          items={videos}
+          renderItem={(video) => <VideoPlayerIndex video={video} />}
+        />
       ) : (
         <span>no videos</span>
-      )}
-      {userVideosURL.length ? (
-        <ul>
-          {videosURL.map((url) => (
-            <li key={url}>
-              <video src={url} controls></video>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <span>no user videos</span>
       )}
 
       <div className="flex flex-col ">

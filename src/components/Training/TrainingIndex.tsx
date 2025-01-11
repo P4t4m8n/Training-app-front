@@ -36,7 +36,10 @@ export default function TrainingIndex({
         <Button
           styleMode="tertiary"
           styleSize="small"
-          onClick={() => setIsEdit((prev) => !prev)}
+          onClick={(e) => {
+            e.preventDefault();
+            setIsEdit((prev) => !prev);
+          }}
         >
           Edit
         </Button>

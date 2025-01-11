@@ -2,11 +2,10 @@ import { TTraining } from "../types/training.type";
 
 const getEmpty = (name: string): TTraining => {
   return {
-    videosURL: [],
-    userVideosURL: [],
+    videos: [],
     set: 1,
     goalSet: 1,
-    name:name + " " + generateHexDecimal(),
+    name: name + " " + generateHexDecimal(),
     sets: [],
   };
 };

@@ -19,11 +19,10 @@ export default function TrainingEditIndex({
   setProgramToEdit,
 }: Props) {
   const [trainingToEdit, setTrainingToEdit] = useState(training);
-  const { name, videosURL, userVideosURL, set, goalSet, sets } = trainingToEdit;
-  console.log("userVideosURL:", userVideosURL);
+  const { name, set, goalSet, sets } = trainingToEdit;
+  const [videos, setVideos] = useState(training.videos || []);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
     const { value, name } = e.target;
     setTrainingToEdit((prev) => ({ ...prev, [name]: value }));
   };
@@ -34,7 +33,7 @@ export default function TrainingEditIndex({
     setProgramToEdit((prev) => {
       const trainings = (prev?.trainings ?? []).map((t) => {
         if (t.name === training.name) {
-          return trainingToEdit;
+          return { ...trainingToEdit, videos };
         }
         return t;
       });
@@ -63,10 +62,7 @@ export default function TrainingEditIndex({
           onChange={onChange}
         />
       </div>
-      <TrainingEditVideos
-        videosURL={videosURL}
-        setTrainingToEdit={setTrainingToEdit}
-      />
+      <TrainingEditVideos videos={videos} setTrainingToEdit={setVideos} />
       <div className="">
         <div className="">
           <Label htmlFor={`trainingSet${name}`}>Set:</Label>

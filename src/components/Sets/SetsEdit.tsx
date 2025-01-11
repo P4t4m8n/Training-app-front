@@ -13,7 +13,6 @@ interface Props {
   idx?: number;
 }
 export default function SetsEdit({ set, setTrainingToEdit, idx }: Props) {
-  console.log("set:", set);
   const [setToEdit, setSetToEdit] = useState(set);
 
   function onChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -43,7 +42,6 @@ export default function SetsEdit({ set, setTrainingToEdit, idx }: Props) {
       await removeSet(setToEdit.id);
     }
 
-    console.log("idx:", idx);
     setTrainingToEdit((prev) => {
       const sets = prev.sets.filter((_, i) => i !== idx);
       return { ...prev, sets };

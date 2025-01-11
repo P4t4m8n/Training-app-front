@@ -16,6 +16,7 @@ export type TProgramDto = TEntity & {
   endDate: Date;
   userId: string;
   name: string;
+  trainings: TTraining[];
 };
 
 export const DAYS_OF_WEEK = [

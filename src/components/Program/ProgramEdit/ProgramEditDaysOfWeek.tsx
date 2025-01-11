@@ -14,8 +14,9 @@ export default function ProgramEditDaysOfWeek({ daysOfWeek }: Props) {
           <Label htmlFor={`day-${day}`}>{day}</Label>
           <Input
             type="checkbox"
-            name="daysOfWeek"
+            name={`days-${day}`}
             id={`day-${day}`}
+            value={day}
             defaultChecked={daysOfWeek.includes(day)}
             className=" border-none"
           />

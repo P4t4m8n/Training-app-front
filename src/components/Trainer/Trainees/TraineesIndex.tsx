@@ -8,7 +8,7 @@ import ListHeader from "./TraineeListHeader";
 
 export default function TraineesIndex() {
   const [trainees, setTrainees] = useState<TTrainee[]>([]);
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {

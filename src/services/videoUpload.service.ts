@@ -1,9 +1,10 @@
-export const uploadVideoToCloudinary = async (file: Blob) => {
-  const UPLOAD_PRESET = import.meta.env.CLOUDINARY_UPLOAD_PRESET!;
-  const CLOUD_NAME = import.meta.env.CLOUDINARY_CLOUD_NAME!;
-  const UPLOAD_URL = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`;
+import { TVideo } from "../types/video.type";
 
-  console.log("UPLOAD_URL:", UPLOAD_URL)
+export const uploadVideoToCloudinary = async (file: Blob): Promise<TVideo> => {
+  const UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET!;
+  const CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME!;
+  const UPLOAD_URL = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/video/upload`;
+
   try {
     const formData = new FormData();
     formData.append("upload_preset", UPLOAD_PRESET);
@@ -12,14 +13,21 @@ export const uploadVideoToCloudinary = async (file: Blob) => {
       method: "POST",
       body: formData,
     });
-    console.log("res:", res);
 
     const result = await res.json();
-    console.log("result:", result);
+    const video: TVideo = {
+      assetId: result.asset_id,
+      duration: result.duration,
+      format: result.format,
+      height: result.height,
+      width: result.width,
+      playbackUrl: result.playback_url,
+      url: result.url,
+    };
 
-    // Save the `result.secure_url` to your database if needed
-    return result;
+    return video;
   } catch (error) {
     console.error("Error uploading video:", error);
+    throw new Error("Error uploading video");
   }
 };

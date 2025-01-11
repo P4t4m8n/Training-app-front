@@ -1,9 +1,10 @@
 import { TEntity } from "./app.type";
 import { TSet } from "./set.type";
+import { TVideo } from "./video.type";
 
 export type TTraining = TEntity & {
-  videosURL: string[];
-  userVideosURL: string[];
+  videos: TVideo[];
+  userVideos?: TVideo[];
   set: number;
   goalSet: number;
   name: string;

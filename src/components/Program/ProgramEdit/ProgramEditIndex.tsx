@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { TProgram } from "../../../types/program.type";
+import { TProgram, TProgramDto } from "../../../types/program.type";
 import { useParams } from "react-router";
 import { programService } from "../../../services/program.service";
 import { programUtil } from "../../../utils/program.util";
@@ -11,7 +11,6 @@ import ProgramEditTraining from "./ProgramEditTraining";
 
 export default function ProgramEditIndex() {
   const [programToEdit, setProgramToEdit] = useState<TProgram | null>(null);
-  console.log("programToEdit:", programToEdit);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { id: programId, userId } = useParams<{ userId: string; id: string }>();
 
@@ -21,10 +20,8 @@ export default function ProgramEditIndex() {
         setIsLoading(true);
         const program = programId
           ? await programService.getById(programId)
-          : await programService.create({
-              ...programUtil.getEmptyDto(),
-              userId: userId!,
-            });
+          : programUtil.getEmpty();
+
         if (program?.userId) {
           program.userId = userId!;
         }
@@ -45,7 +42,25 @@ export default function ProgramEditIndex() {
     const form = e.currentTarget as HTMLFormElement;
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
-    console.log(data);
+    const days = Object.keys(data)
+      .filter((key) => key.startsWith("days-"))
+      .map((key) => data[key]);
+
+    const startDate = new Date(data?.startDate as string);
+    const endDate = new Date(data?.endDate as string);
+    const name = data?.name as string;
+    const id = data?.id as string;
+    const programToSave = {
+      ...programToEdit,
+      name,
+      id,
+      days,
+      startDate,
+      endDate,
+      userId
+    };
+    const res = await programService.create(programToSave as TProgramDto);
+    console.log("res:", res)
   }
 
   if (isLoading || !programToEdit) {
@@ -59,7 +74,7 @@ export default function ProgramEditIndex() {
       <form onSubmit={onSubmit} className="flex flex-col gap-4">
         <Input type="hidden" name="id" defaultValue={id} />
 
-        <Input type="text" placeholder="Name" defaultValue={name} />
+        <Input type="text" placeholder="Name" defaultValue={name} name="name" />
 
         <ProgramEditDaysOfWeek daysOfWeek={days} />
         <ProgramEditDates startDate={startDate} endDate={endDate} />

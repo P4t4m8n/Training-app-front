@@ -15,7 +15,7 @@ export default function ProgramEditTraining({
   setProgramToEdit,
   trainings,
 }: Props) {
- async function addTraining(e: React.MouseEvent) {
+  async function addTraining(e: React.MouseEvent) {
     e.preventDefault();
     e.stopPropagation();
     const emptyTraining = trainingUtil.getEmpty("new training");
@@ -38,7 +38,12 @@ export default function ProgramEditTraining({
       <ul>
         <ItemList
           items={trainings}
-          renderItem={(training) => <TrainingPreview training={training} setProgramToEdit={setProgramToEdit} />}
+          renderItem={(training) => (
+            <TrainingPreview
+              training={training}
+              setProgramToEdit={setProgramToEdit}
+            />
+          )}
         />
       </ul>
     </div>
